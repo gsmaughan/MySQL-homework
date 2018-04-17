@@ -56,7 +56,7 @@ function start(){
 
 function view(){
 
-	var query = connection.query("SELECT * FROM products", 
+	var query = connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", 
 
 		function(err, res) {
     	if (err) throw err;
@@ -100,7 +100,7 @@ function low(){
 function addQuery(){
 	
 	
-	var query = connection.query("SELECT * FROM products", 
+	var query = connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", 
 
 
 
@@ -154,15 +154,15 @@ function addPrompt(){
 
 
   			} //end if
-  			else{
-  				console.log(amount, "is not a number");
-  				start();
-  			}
+  			// else{
+  			// 	console.log(amount, "is not a number");
+  			// 	start();
+  			// }
   			
   			
   	}); // end .then
 	
-
+// start();
 } //end addPrompt()
 
 
@@ -220,7 +220,7 @@ function add(choice, amount, inStock){
  		// connection.end();
   		}); //end function(err, res)
 
-	connection.end();
+	start();
 } //end add()
 
 function createNewProduct(){
@@ -283,5 +283,6 @@ function addNewProduct(name, department, price, quantity) {
     }
     
   });
+   connection.end();
 } //end addNewProduct
 

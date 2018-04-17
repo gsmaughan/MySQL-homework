@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require("inquirer");
+const cTable = require('console.table');
 
 var connection = mysql.createConnection({
 
@@ -21,18 +22,29 @@ connection.connect(function(err){
 
 function start(){
 
-	var query = connection.query("SELECT * FROM products", 
+	var query = connection.query("SELECT item_id, product_name, price FROM products", 
 
 
 		function(err, res) {					
     if (err) throw err;
-    	res.forEach(function(items){
-    		console.log("\r\nItem ID: " + items.item_id + "\tProduct: " + items.product_name +
-                "\tPrice: $" + items.price + "\tIn Stock: " + items.stock_quantity);
-    	});
+
+    	const table = cTable.getTable(res);
+    	console.log(table);
+
+    	// res.forEach(function(items){
+    	// 	console.log("\r\nItem ID: " + items.item_id + "\tProduct: " + items.product_name +
+     //            "\tPrice: $" + items.price + "\tIn Stock: " + items.stock_quantity);
+    	// });
  	}); //end connection.query
 
-	inquirer.prompt([
+ 			
+ 	}  //end start()
+
+ 	prompt();	
+
+function prompt(){
+
+inquirer.prompt([
     	// Here we create a basic text prompt.
     	
     	{
@@ -55,7 +67,11 @@ function start(){
   			
   	}); // end .then
 
-}  //end start()
+} //end prompt	
+
+	
+
+
 
 function check(id, units){
 	
